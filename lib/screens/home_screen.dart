@@ -13,10 +13,10 @@ class homeScreen extends StatefulWidget {
 
 class _homeScreenState extends State<homeScreen> {
   List<String> weatherDataImage = [
-    "assets/im_SunAndRain.png",
-    "assets/im_Rainy.png",
     "assets/im_lightning.png",
-    "assets/im_cloudly.png",
+    "assets/im_lightning.png",
+    "assets/im_lightning.png",
+    "assets/im_lightning.png",
   ];
   List<int> weatherDataTemperature = [20, 20, 19, 19];
   List<String> weatherDataClock = [
@@ -33,14 +33,14 @@ class _homeScreenState extends State<homeScreen> {
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.only(top: 35, left: 10, right: 10),
-            child: Container(
+            child: SizedBox(
               width: 100.w,
               height: 100.h,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 100.w,
                     height: 4.h,
                     child: Row(
