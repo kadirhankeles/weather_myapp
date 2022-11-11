@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:weather_myapp/screens/weather_details.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key});
@@ -315,7 +316,14 @@ class _homeScreenState extends State<homeScreen> {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              weatherDetailScreen(),
+                                        ));
+                                  },
                                   icon: Icon(Icons.play_arrow_rounded)),
                             ],
                           ),

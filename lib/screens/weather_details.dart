@@ -63,11 +63,15 @@ class _weatherDetailScreenState extends State<weatherDetailScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
-                            Icons.keyboard_arrow_left_rounded,
-                            size: 35,
-                            color: Colors.white,
-                          ),
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.keyboard_arrow_left,
+                                size: 35,
+                                color: Colors.white,
+                              )),
                           Text(
                             "Tanjungsiang, Subang",
                             style: TextStyle(
@@ -251,7 +255,7 @@ class _weatherDetailScreenState extends State<weatherDetailScreen> {
                         padding: EdgeInsets.all(12.0),
                         child: GridView.builder(
                           itemCount: gridImage.length,
-                          physics: NeverScrollableScrollPhysics(),
+                          //physics: NeverScrollableScrollPhysics(),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   childAspectRatio: 4 / 1,
