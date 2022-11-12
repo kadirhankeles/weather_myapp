@@ -1,9 +1,10 @@
 import 'dart:ui';
-
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:weather_myapp/animation/animation.dart';
 
 class weatherDetailScreen extends StatefulWidget {
   const weatherDetailScreen({super.key});
@@ -41,6 +42,9 @@ class _weatherDetailScreenState extends State<weatherDetailScreen> {
     "Kecepatan Angin",
     "Kabut"
   ];
+
+  late AnimationController animateController;
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(
@@ -254,10 +258,11 @@ class _weatherDetailScreenState extends State<weatherDetailScreen> {
                         height: 15.h,
                         padding: EdgeInsets.all(12.0),
                         child: GridView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: gridImage.length,
-                          //physics: NeverScrollableScrollPhysics(),
+                          physics: NeverScrollableScrollPhysics(),
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                                   childAspectRatio: 4 / 1,
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 7,

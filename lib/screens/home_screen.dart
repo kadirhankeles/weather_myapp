@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:weather_myapp/animation/animation.dart';
 import 'package:weather_myapp/screens/weather_details.dart';
 
 class homeScreen extends StatefulWidget {
@@ -321,7 +322,7 @@ class _homeScreenState extends State<homeScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              weatherDetailScreen(),
+                                              animationScreen(),
                                         ));
                                   },
                                   icon: Icon(Icons.play_arrow_rounded)),
