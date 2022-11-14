@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -11,62 +12,71 @@ class animationScreen extends StatefulWidget {
   State<animationScreen> createState() => _animationScreenState();
 }
 
-class _animationScreenState extends State<animationScreen> {
-  void initState() {
-    Timer(
-      Duration(milliseconds: 2000),
-      () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => weatherDetailScreen(),
-            ));
-      },
-    );
+class _animationScreenState extends State<animationScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController fdbcontroller;
 
+  @override
+  void initState() {
     super.initState();
+    fdbcontroller = AnimationController(
+      duration: Duration(seconds: 10),
+      vsync: this,
+    );
+    fdbcontroller.forward();
+
+    fdbcontroller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        fdbcontroller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        fdbcontroller.forward();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    fdbcontroller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blueGrey.shade100,
-      body: (Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            ElasticInDown(
-              child: ColorMethod(renk: Colors.red),
-              duration: Duration(milliseconds: 1000),
-            ),
-            ElasticInDown(
-              child: ColorMethod(renk: Colors.blue),
-              duration: Duration(milliseconds: 1500),
-            ),
-            ElasticInDown(
-              child: ColorMethod(renk: Colors.green),
-              duration: Duration(milliseconds: 2000),
-            ),
-            ElasticInDown(
-              child: ColorMethod(renk: Colors.yellow),
-              duration: Duration(milliseconds: 2500),
-            ),
-          ],
-        ),
-      )),
+    return AnimatedBuilder(
+      animation: fdbcontroller.view,
+      builder: (context, child) {
+        return Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              for (int i = 0; i < 10; i++)
+                Transform.translate(
+                  offset:
+                      Offset(0, fdbcontroller.value * Random().nextInt(200)),
+                  child: ColorMethod(),
+                )
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
 class ColorMethod extends StatelessWidget {
   ColorMethod({
-    required this.renk,
     Key? key,
   }) : super(key: key);
-  Color renk;
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: 50, height: 50, color: renk);
+    // return Container(width: 50, height: 50, color: renk);
+    return SizedBox(
+        width: 10,
+        height: 10,
+        child: Image.asset(
+          "assets/rain.png",
+          fit: BoxFit.cover,
+        ));
   }
 }

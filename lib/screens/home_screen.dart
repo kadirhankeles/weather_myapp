@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:weather_myapp/animation/animation.dart';
+import 'package:weather_myapp/provider/weather_provider.dart';
 import 'package:weather_myapp/screens/weather_details.dart';
 
 class homeScreen extends StatefulWidget {
@@ -27,6 +29,15 @@ class _homeScreenState extends State<homeScreen> {
     "6.00 PM",
     "7.00 PM",
   ];
+  @override
+  void initState() {
+    super.initState();
+    final wetProvider = Provider.of<WeatherProvider>(
+      context,
+      listen: false,
+    );
+    wetProvider.getWeatherData(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -322,7 +333,7 @@ class _homeScreenState extends State<homeScreen> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              animationScreen(),
+                                              weatherDetailScreen(),
                                         ));
                                   },
                                   icon: Icon(Icons.play_arrow_rounded)),

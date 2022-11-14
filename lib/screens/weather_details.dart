@@ -113,6 +113,11 @@ class _weatherDetailScreenState extends State<weatherDetailScreen> {
                       color: Colors.white,
                       size: 20.w,
                     ),
+                    Container(
+                      width: 100,
+                      height: 40,
+                      child: animationScreen(),
+                    ),
                     Text(
                       "18°C",
                       style: TextStyle(color: Colors.white, fontSize: 20),
