@@ -40,6 +40,8 @@ class _homeScreenState extends State<homeScreen> {
       context,
       listen: false,
     );
+    
+
   }
 
   String datetime = DateTime.now().toString();
@@ -107,6 +109,7 @@ class _homeScreenState extends State<homeScreen> {
                                     lct = locateController.text;
                                     value.getWeatherData(lct);
                                     print(lct);
+                                    value.getDataHourly(lct);
                                   },
                                   icon: const Icon(Icons.search));
                             },
@@ -243,36 +246,43 @@ class _homeScreenState extends State<homeScreen> {
                     Container(
                       width: double.infinity,
                       height: 15.h,
-                      child: ListView.builder(
-                        itemCount: weatherDataImage.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(horizontal: 8),
-                            width: 20.w,
-                            height: 8.h,
-                            decoration: BoxDecoration(
-                              color: Colors.blueGrey.shade50,
-                              borderRadius: BorderRadius.circular(5.w),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  weatherDataImage[index],
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  "${weatherDataTemperature[index]}°",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(weatherDataClock[index]),
-                              ],
-                            ),
-                          );
+                      child: Consumer(
+
+                        builder: (context, WeatherProvider value, child) {
+                          
+                          return value.isLoadings ? CircularProgressIndicator():ListView.builder(
+                          
+                          itemCount: weatherDataImage.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.symmetric(horizontal: 8),
+                              width: 20.w,
+                              height: 8.h,
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey.shade50,
+                                borderRadius: BorderRadius.circular(5.w),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    weatherDataImage[index],
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Text(
+                                    "${(value.hresponse.list![index].main!.temp)}°",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text("${value.hresponse.list![index].dtTxt.toString().split(" ").last.toString().substring(0,5)}"),
+                                ],
+                              ),
+                            );
+                          },
+                        );
                         },
                       ),
                     ),
